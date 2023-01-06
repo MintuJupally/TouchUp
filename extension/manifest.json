@@ -1,0 +1,23 @@
+{
+  "name": "React Chrome Extension",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {},
+  "permissions": ["activeTab", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["/build/static/css/main.css"],
+      "js": ["/build/static/js/main.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["/build/static/media/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
