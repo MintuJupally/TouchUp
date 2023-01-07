@@ -1,3 +1,4 @@
+import './index.css';
 import { useEffect, useState } from 'react';
 
 const ElementProfile = ({ selectedElement, updateGlobalStyle, applyStyle }) => {
@@ -101,6 +102,51 @@ const ElementProfile = ({ selectedElement, updateGlobalStyle, applyStyle }) => {
               updateStyle('backgroundColor', e.target.value);
             }}
           />
+        </div>
+
+        <b> Font size:</b>
+        <input
+          type="number"
+          onChange={(e) => {
+            updateStyle('font-size', e.target.value + 'px');
+          }}
+        />
+
+        <b> Border-Radius: </b>
+        <input
+          type="number"
+          onChange={(e) => {
+            updateStyle('border-radius', e.target.value + 'px');
+          }}
+        />
+
+        <b> Font :</b>
+        <input
+          type="string"
+          onChange={(e) => {
+            updateStyle('font', e.target.value);
+          }}
+        />
+
+        <b> Background Image : </b>
+        <input
+          type="string"
+          onChange={(e) => {
+            updateStyle('background-image', 'url(' + e.target.value + ')');
+          }}
+        />
+
+        <div class="dropdown">
+          <button class="dropbtn">Font Weight</button>
+          <div class="dropdown-content">
+            <button  onClick={() => {
+                updateStyle('font-weight', "bold");
+            }}> Bold</button>
+          
+            <button  onClick={() => {
+                updateStyle('font-weight', "italic");
+              }}> italic</button>
+          </div>
         </div>
       </div>
     </div>
