@@ -91,6 +91,8 @@ const App = () => {
       return;
     }
 
+    console.log('action...');
+
     e.preventDefault();
 
     if (selectedElementRef.current === e.target) return;

@@ -69,25 +69,40 @@ const ElementProfile = ({ selectedElement, updateGlobalStyle, applyStyle }) => {
         height: '300px',
         borderRadius: '5px',
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        flexDirection: 'column',
+        color: 'black',
+        padding: '20px',
       }}
     >
-      <b>Color: </b>
-      <input
-        type="color"
-        onChange={(e) => {
-          updateStyle('color', e.target.value);
+      <div
+        style={{
+          fontSize: '24px',
+          fontWeight: '500',
+          borderBottom: '1px solid black',
         }}
-      />
+      >{`< ${selectedElement.tagName.toLowerCase()} >`}</div>
 
-      <b>Background Color: </b>
-      <input
-        type="color"
-        onChange={(e) => {
-          updateStyle('backgroundColor', e.target.value);
-        }}
-      />
+      <div>
+        <div>
+          <b>Color: </b>
+          <input
+            type="color"
+            onChange={(e) => {
+              updateStyle('color', e.target.value);
+            }}
+          />
+        </div>
+
+        <div>
+          <b>Background Color: </b>
+          <input
+            type="color"
+            onChange={(e) => {
+              updateStyle('backgroundColor', e.target.value);
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 };
