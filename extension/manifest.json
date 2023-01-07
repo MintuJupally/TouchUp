@@ -1,12 +1,12 @@
 {
-  "name": "React Chrome Extension",
+  "name": "TouchUp",
   "version": "1.0.0",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   },
   "action": {},
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["scripting", "storage"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

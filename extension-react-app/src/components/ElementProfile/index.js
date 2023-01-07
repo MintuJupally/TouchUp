@@ -1,7 +1,14 @@
+/*global chrome*/
+
 import './index.css';
 import { useEffect, useState } from 'react';
 
-const ElementProfile = ({ selectedElement, updateGlobalStyle, applyStyle }) => {
+const ElementProfile = ({
+  selectedElement,
+  updateGlobalStyle,
+  applyStyle,
+  styles,
+}) => {
   const [elementIdentifier, setElementIdentifier] = useState(null);
   const [style, setStyle] = useState({});
 
@@ -56,7 +63,7 @@ const ElementProfile = ({ selectedElement, updateGlobalStyle, applyStyle }) => {
     console.log({ style });
   }, [style]);
 
-  if (!selectedElement) return null;
+  if (!selectedElement || !elementIdentifier) return null;
 
   return (
     <div
@@ -83,70 +90,153 @@ const ElementProfile = ({ selectedElement, updateGlobalStyle, applyStyle }) => {
         }}
       >{`< ${selectedElement.tagName.toLowerCase()} >`}</div>
 
-      <div>
-        <div>
-          <b>Color: </b>
-          <input
-            type="color"
-            onChange={(e) => {
-              updateStyle('color', e.target.value);
-            }}
-          />
-        </div>
-
-        <div>
-          <b>Background Color: </b>
-          <input
-            type="color"
-            onChange={(e) => {
-              updateStyle('backgroundColor', e.target.value);
-            }}
-          />
-        </div>
-
-        <b> Font size:</b>
+      <div style={{ display: 'flex', marginTop: '10px' }}>
+        <p
+          style={{
+            width: '140px',
+            paddingRight: '10px',
+            margin: 0,
+            textAlign: 'left',
+          }}
+        >
+          Color
+        </p>
         <input
+          className="TouchUp-style-input"
+          style={{ width: '150px' }}
+          type="color"
+          value={styles?.[elementIdentifier]?.color ?? 'black'}
+          onChange={(e) => {
+            updateStyle('color', e.target.value);
+          }}
+        />
+      </div>
+
+      <div style={{ display: 'flex', marginTop: '10px' }}>
+        <p
+          style={{
+            width: '140px',
+            paddingRight: '10px',
+            margin: 0,
+            textAlign: 'left',
+          }}
+        >
+          Background Color
+        </p>
+        <input
+          className="TouchUp-style-input"
+          style={{ width: '150px' }}
+          type="color"
+          value={styles?.[elementIdentifier]?.backgroundColor ?? 'black'}
+          onChange={(e) => {
+            updateStyle('backgroundColor', e.target.value);
+          }}
+        />
+      </div>
+
+      <div style={{ display: 'flex', marginTop: '10px' }}>
+        <p
+          style={{
+            width: '140px',
+            paddingRight: '10px',
+            margin: 0,
+            textAlign: 'left',
+          }}
+        >
+          Font Size
+        </p>
+        <input
+          className="TouchUp-style-input"
+          style={{ width: '150px' }}
           type="number"
           onChange={(e) => {
             updateStyle('font-size', e.target.value + 'px');
           }}
         />
+      </div>
 
-        <b> Border-Radius: </b>
+      <div style={{ display: 'flex', marginTop: '10px' }}>
+        <p
+          style={{
+            width: '140px',
+            paddingRight: '10px',
+            margin: 0,
+            textAlign: 'left',
+          }}
+        >
+          Border Radius
+        </p>
         <input
+          className="TouchUp-style-input"
+          style={{ width: '150px' }}
           type="number"
           onChange={(e) => {
             updateStyle('border-radius', e.target.value + 'px');
           }}
         />
+      </div>
 
-        <b> Font :</b>
+      <div style={{ display: 'flex', marginTop: '10px' }}>
+        <p
+          style={{
+            width: '140px',
+            paddingRight: '10px',
+            margin: 0,
+            textAlign: 'left',
+          }}
+        >
+          Font
+        </p>
         <input
+          className="TouchUp-style-input"
+          style={{ width: '150px' }}
           type="string"
           onChange={(e) => {
             updateStyle('font', e.target.value);
           }}
         />
+      </div>
 
-        <b> Background Image : </b>
+      <div style={{ display: 'flex', marginTop: '10px' }}>
+        <p
+          style={{
+            width: '140px',
+            paddingRight: '10px',
+            margin: 0,
+            textAlign: 'left',
+          }}
+        >
+          Background Image
+        </p>
         <input
+          className="TouchUp-style-input"
+          style={{ width: '150px' }}
           type="string"
           onChange={(e) => {
             updateStyle('background-image', 'url(' + e.target.value + ')');
           }}
         />
+      </div>
 
-        <div class="dropdown">
-          <button class="dropbtn">Font Weight</button>
-          <div class="dropdown-content">
-            <button  onClick={() => {
-                updateStyle('font-weight', "bold");
-            }}> Bold</button>
-          
-            <button  onClick={() => {
-                updateStyle('font-weight', "italic");
-              }}> italic</button>
-          </div>
+      <div class="dropdown">
+        <button class="dropbtn">Font Weight</button>
+        <div class="dropdown-content">
+          <button
+            onClick={() => {
+              updateStyle('font-weight', 'bold');
+            }}
+          >
+            Bold
+          </button>
+
+          <button
+            onClick={() => {
+              updateStyle('font-weight', 'italic');
+            }}
+          >
+            {' '}
+            italic
+          </button>
         </div>
       </div>
     </div>

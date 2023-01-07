@@ -91,7 +91,7 @@ const App = () => {
       return;
     }
 
-    console.log('action...');
+    // console.log('action...');
 
     e.preventDefault();
     e.stopPropagation();
@@ -113,11 +113,30 @@ const App = () => {
     curr[id] = style;
 
     setStyles(curr);
+    chrome.storage.sync.set({ [`${window.location.href}`]: curr }, () => {});
   };
 
   const applyStyle = (prop, val) => {
     if (selectedElementRef.current)
       selectedElementRef.current.style[prop] = val;
+  };
+
+  const decodeStyles = (data) => {
+    console.log({ data });
+
+    Object.keys(data).forEach((id) => {
+      const identifier = id.split('_');
+
+      let element = document.body;
+      for (let i = 0; i < identifier.length; i++) {
+        element = element.children[identifier[i]];
+      }
+
+      console.log({ element });
+      Object.keys(data[id]).forEach((prop) => {
+        element.style[prop] = data[id][prop];
+      });
+    });
   };
 
   useEffect(() => {
@@ -167,6 +186,12 @@ const App = () => {
         }
       }
     });
+
+    chrome.storage.sync.get(window.location.href, (data) => {
+      decodeStyles(data[window.location.href]);
+
+      setStyles(data[window.location.href]);
+    });
   }, []);
 
   return (
@@ -177,6 +202,7 @@ const App = () => {
         selectedElement={selectedElement}
         updateGlobalStyle={updateStyle}
         applyStyle={applyStyle}
+        styles={styles}
       />
     </div>
   );
