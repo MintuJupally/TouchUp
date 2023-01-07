@@ -94,6 +94,7 @@ const App = () => {
     console.log('action...');
 
     e.preventDefault();
+    e.stopPropagation();
 
     if (selectedElementRef.current === e.target) return;
 
@@ -146,12 +147,12 @@ const App = () => {
           );
 
           document.addEventListener('mousemove', elementFinder);
-          document.addEventListener('click', elementSelector);
+          document.addEventListener('click', elementSelector, true);
 
           toolbarElement.style.display = 'flex';
         } else {
           document.removeEventListener('mousemove', elementFinder);
-          document.removeEventListener('click', elementSelector);
+          document.removeEventListener('click', elementSelector, true);
           currentHover.current = currentHover_g = null;
           toolbarElement.style.display = 'none';
 
