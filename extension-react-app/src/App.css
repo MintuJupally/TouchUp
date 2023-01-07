@@ -11,9 +11,8 @@
   animation: reveal 0.1s linear;
 }
 
-.TouchUp-hovered {
-  border: 1px solid rgb(23, 236, 23);
-  box-sizing: border-box !important;
+.TouchUp-selected {
+  border: 1px solid greenyellow;
 }
 
 @keyframes reveal {
@@ -25,22 +24,26 @@
   }
 }
 
+.TouchUp-focus-element {
+  position: absolute;
+}
+
 #TouchUp-focus-left {
-  width: 1px;
-  background-color: red;
+  /* width: 1px; */
+  border-left: 0px dashed red;
 }
 
 #TouchUp-focus-right {
-  width: 1px;
-  background-color: red;
+  /* width: 1px; */
+  border-left: 0px dashed red;
 }
 
 #TouchUp-focus-top {
-  height: 1px;
-  background-color: red;
+  /* height: 1px; */
+  border-top: 0px dashed red;
 }
 
 #TouchUp-focus-bottom {
-  height: 1px;
-  background-color: red;
+  /* height: 1px; */
+  border-top: 0px dashed red;
 }
