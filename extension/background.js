@@ -4,7 +4,5 @@ chrome.action.onClicked.addListener(function (tab) {
   //     files: ['/build/static/js/main.js'],
   //   });
 
-  chrome.tabs.sendMessage(tab.id, { method: 'ping' }, function (response) {
-    console.log(response);
-  });
+  chrome.tabs.sendMessage(tab.id, { method: 'ping' }, null);
 });
