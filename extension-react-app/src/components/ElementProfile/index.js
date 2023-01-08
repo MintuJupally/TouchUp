@@ -1,6 +1,5 @@
 /*global chrome*/
 
-import './index.css';
 import { useEffect, useState } from 'react';
 
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
@@ -245,26 +244,25 @@ const ElementProfile = ({
         />
       </div>
 
-      <div class="dropdown">
-        <button class="dropbtn">Font Weight</button>
-        <div class="dropdown-content">
-          <button
-            onClick={() => {
-              updateStyle('font-weight', 'bold');
-            }}
-          >
-            Bold
-          </button>
-
-          <button
-            onClick={() => {
-              updateStyle('font-weight', 'italic');
-            }}
-          >
-            {' '}
-            italic
-          </button>
-        </div>
+      <div style={{ display: 'flex', marginTop: '10px' }}>
+        <p
+          style={{
+            width: '140px',
+            paddingRight: '10px',
+            margin: 0,
+            textAlign: 'left',
+          }}
+        >
+          Font Weight
+        </p>
+        <input
+          className="TouchUp-style-input"
+          style={{ width: '150px' }}
+          type="number"
+          onChange={(e) => {
+            updateStyle('font-weight', e.target.value);
+          }}
+        />
       </div>
     </div>
   );
