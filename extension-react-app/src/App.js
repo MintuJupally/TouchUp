@@ -6,6 +6,7 @@ import Toolbar from './components/Toolbar';
 import FocusDiv from './components/FocusDiv';
 import ElementProfile from './components/ElementProfile';
 import DesignList from './components/DesignList';
+import SelectFrame from './components/SelectFrame';
 
 let activeMode_g = false;
 let currentHover_g = null;
@@ -15,6 +16,7 @@ const App = () => {
   const currentHover = useRef(null);
   const toolbarRef = useRef(null);
   const selectedElementRef = useRef(null);
+  const selectFrameRef = useRef(null);
 
   const [activeMode, setActiveMode] = useState(false);
   const [selectedElement, setSelectedElement] = useState(null);
@@ -26,13 +28,14 @@ const App = () => {
 
     if (
       e.target.classList.contains('TouchUp-focus-element') ||
-      e.target.classList.contains('TouchUp-elementprofile')
+      e.target.classList.contains('TouchUp-elementprofile') ||
+      e.target.classList.contains('TouchUp-select-frame')
     ) {
       return;
     }
 
     const toolbarElement = document.getElementById('TouchUp-toolbar');
-    if (toolbarElement === e.target || toolbarElement.contains(e.target)) {
+    if (toolbarElement === e.target || toolbarElement?.contains(e.target)) {
       [
         'TouchUp-focus-left',
         'TouchUp-focus-right',
@@ -203,7 +206,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Toolbar ref={toolbarRef} />
+      {/* <Toolbar ref={toolbarRef} /> */}
       <FocusDiv activeMode={activeMode} />
       {activeMode && (
         <ElementProfile
@@ -215,6 +218,12 @@ const App = () => {
       )}
 
       {activeMode && <DesignList />}
+      {activeMode && selectedElement && (
+        <SelectFrame
+          bounds={selectedElementRef.current.getBoundingClientRect()}
+          ref={selectFrameRef}
+        />
+      )}
     </div>
   );
 };

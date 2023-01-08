@@ -1,5 +1,4 @@
 /*global chrome*/
-
 import { useEffect, useState } from 'react';
 
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
@@ -87,6 +86,7 @@ const ElementProfile = ({
         color: 'black',
         padding: '5px 20px 20px 20px',
         transition: 'all 0.2s ease-in-out',
+        zIndex: 100000,
       }}
     >
       <div
