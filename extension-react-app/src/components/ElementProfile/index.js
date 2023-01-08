@@ -3,6 +3,9 @@
 import './index.css';
 import { useEffect, useState } from 'react';
 
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
+
 const ElementProfile = ({
   selectedElement,
   updateGlobalStyle,
@@ -11,6 +14,8 @@ const ElementProfile = ({
 }) => {
   const [elementIdentifier, setElementIdentifier] = useState(null);
   const [style, setStyle] = useState({});
+
+  const [collapsed, setCollapsed] = useState(false);
 
   const identifyElement = (el) => {
     if (!el) return;
@@ -45,6 +50,8 @@ const ElementProfile = ({
 
   useEffect(() => {
     identifyElement(selectedElement);
+
+    if (selectedElement) setCollapsed(false);
   }, [selectedElement]);
 
   const updateStyle = (prop, val) => {
@@ -74,12 +81,13 @@ const ElementProfile = ({
         bottom: 10,
         right: 10,
         width: '300px',
-        height: '300px',
+        height: collapsed ? '30px' : 'calc(50vh - 15px)',
         borderRadius: '5px',
         display: 'flex',
         flexDirection: 'column',
         color: 'black',
-        padding: '20px',
+        padding: '5px 20px 20px 20px',
+        transition: 'all 0.2s ease-in-out',
       }}
     >
       <div
@@ -87,8 +95,27 @@ const ElementProfile = ({
           fontSize: '24px',
           fontWeight: '500',
           borderBottom: '1px solid black',
+          padding: '5px 0px 5px 0px',
+          position: 'relative',
         }}
-      >{`< ${selectedElement.tagName.toLowerCase()} >`}</div>
+      >
+        {collapsed
+          ? 'Component Profile'
+          : `< ${selectedElement.tagName.toLowerCase()} >`}
+        <IconButton
+          style={{ position: 'absolute', right: 0 }}
+          size="small"
+          onClick={() => {
+            setCollapsed(!collapsed);
+          }}
+        >
+          {collapsed ? (
+            <ExpandLess color="black" />
+          ) : (
+            <ExpandMore color="black" />
+          )}
+        </IconButton>
+      </div>
 
       <div style={{ display: 'flex', marginTop: '10px' }}>
         <p
@@ -105,7 +132,7 @@ const ElementProfile = ({
           className="TouchUp-style-input"
           style={{ width: '150px' }}
           type="color"
-          value={styles?.[elementIdentifier]?.color ?? 'black'}
+          value={styles?.[elementIdentifier]?.color ?? '#000000'}
           onChange={(e) => {
             updateStyle('color', e.target.value);
           }}
@@ -127,7 +154,7 @@ const ElementProfile = ({
           className="TouchUp-style-input"
           style={{ width: '150px' }}
           type="color"
-          value={styles?.[elementIdentifier]?.backgroundColor ?? 'black'}
+          value={styles?.[elementIdentifier]?.backgroundColor ?? '#000000'}
           onChange={(e) => {
             updateStyle('backgroundColor', e.target.value);
           }}

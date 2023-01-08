@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import Toolbar from './components/Toolbar';
 import FocusDiv from './components/FocusDiv';
 import ElementProfile from './components/ElementProfile';
+import DesignList from './components/DesignList';
 
 let activeMode_g = false;
 let currentHover_g = null;
@@ -155,6 +156,9 @@ const App = () => {
       let toolbarElement = document.getElementById('TouchUp-toolbar');
 
       if (request.method === 'ping') {
+        const selected =
+          document.getElementsByClassName('TouchUp-selected')?.[0];
+
         if (activeMode_g) {
           [
             'TouchUp-focus-left',
@@ -169,11 +173,14 @@ const App = () => {
           document.addEventListener('click', elementSelector, true);
 
           toolbarElement.style.display = 'flex';
+          if (selected) selected.style.borderWidth = '1px';
         } else {
           document.removeEventListener('mousemove', elementFinder);
           document.removeEventListener('click', elementSelector, true);
           currentHover.current = currentHover_g = null;
           toolbarElement.style.display = 'none';
+
+          if (selected) selected.style.borderWidth = '0px';
 
           [
             'TouchUp-focus-left',
@@ -198,12 +205,16 @@ const App = () => {
     <div className="App">
       <Toolbar ref={toolbarRef} />
       <FocusDiv activeMode={activeMode} />
-      <ElementProfile
-        selectedElement={selectedElement}
-        updateGlobalStyle={updateStyle}
-        applyStyle={applyStyle}
-        styles={styles}
-      />
+      {activeMode && (
+        <ElementProfile
+          selectedElement={selectedElement}
+          updateGlobalStyle={updateStyle}
+          applyStyle={applyStyle}
+          styles={styles}
+        />
+      )}
+
+      {activeMode && <DesignList />}
     </div>
   );
 };
